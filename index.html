@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>For My Wife ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", sans-serif;
+      color: white;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    /* Background container with cross-fade */
+    .background {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      transition: opacity 1.5s ease-in-out;
+      opacity: 0;
+      z-index: -1;
+    }
+
+    .background.show {
+      opacity: 1;
+    }
+
+    /* Overlay for darkening */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: 0;
+    }
+
+    /* Open Button */
+    #openBtn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px 40px;
+      font-size: 1.5em;
+      border: none;
+      border-radius: 30px;
+      background: pink;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 20px hotpink, 0 0 40px red;
+      z-index: 10;
+      animation: pulse 2s infinite;
+    }
+
+    /* Button Pulse Effect */
+    @keyframes pulse {
+      0% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 20px hotpink, 0 0 40px red; }
+      50% { transform: translate(-50%, -50%) scale(1.1); box-shadow: 0 0 40px hotpink, 0 0 80px red; }
+      100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 20px hotpink, 0 0 40px red; }
+    }
+
+    /* Content */
+    .content {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      opacity: 0;
+      transition: opacity 2s ease;
+      position: relative;
+      z-index: 2;
+    }
+
+    .content.show {
+      opacity: 1;
+    }
+
+    h1, p {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: slideUp 1.5s ease-out forwards;
+    }
+
+    h1 {
+      font-size: 5em;
+      margin-bottom: 20px;
+      animation-delay: 0.5s;
+    }
+
+    p {
+      font-size: 2.5em;
+      max-width: 600px;
+      line-height: 1.5;
+      animation-delay: 1s;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Falling glowing hearts & flowers */
+    .falling {
+      position: fixed;
+      top: -50px;
+      font-size: 2rem;
+      animation: fall linear infinite, glow 2s ease-in-out infinite alternate;
+      z-index: 1;
+    }
+
+    @keyframes fall {
+      to { transform: translateY(110vh) rotate(360deg); }
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 5px #fff, 0 0 10px pink, 0 0 20px red; }
+      to { text-shadow: 0 0 10px #fff, 0 0 20px hotpink, 0 0 40px gold; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Button -->
+  <button id="openBtn">💝 Open Your Surprise 💝</button>
+
+  <!-- Backgrounds (two layers for cross-fade) -->
+  <div class="background" id="bg1"></div>
+  <div class="background" id="bg2"></div>
+  <div class="overlay"></div>
+
+  <!-- Content -->
+  <div class="content" id="content">
+    <h1>For you my WIFE❤️</h1>
+    <p>
+      Hy bb...  
+      You mean the world to me, and I wanted to make something special for you.  
+      i know you are in your periods and you are in pain this can't reduce the pain😢😭 
+      but i hope that you feel happy seeing this 🥰💋
+    </p>
+  </div>
+
+  <!-- Hidden Background Music -->
+  <audio id="music" loop>
+    <source src="music1/premam.mp3.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Script -->
+  <script>
+    const openBtn = document.getElementById("openBtn");
+    const content = document.getElementById("content");
+    const music = document.getElementById("music");
+
+    const bg1 = document.getElementById("bg1");
+    const bg2 = document.getElementById("bg2");
+
+    const images = ["images/photo1.jpg.jpeg","images/photo01.jpg.jpeg", "images/photo2.jpg.jpeg", "images/photo3.jpg.jpeg", "images/photo5.jpg.jpeg", "images/photo6.jpg.jpeg", "images/photo7.jpg.jpeg", "images/photo8.jpg.jpeg", "images/photo9.jpg.jpeg"];
+    let current = 0;
+    let showingBg1 = true;
+
+    openBtn.addEventListener("click", () => {
+      openBtn.style.display = "none";
+      content.classList.add("show");
+      music.play();
+
+      // set initial background
+      bg1.style.backgroundImage = `url('${images[current]}')`;
+      bg1.classList.add("show");
+
+      // change background every 3s
+      setInterval(() => {
+        current = (current + 1) % images.length;
+        if (showingBg1) {
+          bg2.style.backgroundImage = `url('${images[current]}')`;
+          bg2.classList.add("show");
+          bg1.classList.remove("show");
+        } else {
+          bg1.style.backgroundImage = `url('${images[current]}')`;
+          bg1.classList.add("show");
+          bg2.classList.remove("show");
+        }
+        showingBg1 = !showingBg1;
+      }, 3000);
+
+      // Falling hearts & flowers
+      const symbols = ["❤️", "💖", "💘", "🌸", "🌹", "💐"];
+      for (let i = 0; i < 25; i++) {
+        let span = document.createElement("span");
+        span.className = "falling";
+        span.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+        span.style.left = Math.random() * 100 + "vw";
+        span.style.animationDuration = 5 + Math.random() * 5 + "s";
+        span.style.fontSize = 20 + Math.random() * 30 + "px";
+        span.style.opacity = Math.random();
+        document.body.appendChild(span);
+      }
+    });
+  </script>
+</body>
+</html>
